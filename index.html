@@ -1,31 +1,103 @@
-<!DOCTYPE html>
-<head>
-<title> Test-Dspace tool</title>
-</head>
-<body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>D-Spaces Price Estimation tool </title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-<h2 id="Raj-demo"></h2>
+   
+	<nav class="navbar navbar-expand-lg navbar-light  bg-success">
+  <a class="navbar-brand" Style="color:#FFFFFF;" href="#">D-Spaces Price Estimation Tool(Beta-Version)</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+   </nav>
+  </head>
+  <body>
   
-<h1>Kitchen Cabinet Module</h1>
-<p>Base formulae: (x + y + z) * inputA * inputB</p>
-<div>
-  <label>Sample value Calculation: </label> <h2 id="Dspace-Base-formulae"></h2>
-</div>
+  <div id="accordion">
+    <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Kitchen Cabinets
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+  <form>
+  <div class="form-row col-lg-12">
+    <div class="form-group col-md-4">
+     <label for="exampleFormControlSelect1">Base-Value:</label>
+	 <select class="form-control" style="word-break: break-all;"id="exampleFormControlSelect1">
+	   <option>Choose your option </option>
+	 </select>
+	</div>
+	<div class="form-group col-md-2">
+     <label for="exampleFormControlSelect2">OptionValueA:</label>
+	 <select class="form-control" id="exampleFormControlSelect2">
+	   <option>Choose your option </option>
+	 </select>
+	</div>
+	<div class="form-group col-md-2">
+     <label for="exampleFormControlSelect3">OptionValueB:</label>
+	 <select class="form-control" id="exampleFormControlSelect3">
+	   <option>Choose your option </option>
+	 </select>
+	</div>
+    <div class="form-group col-md-1">
+      <label>Width:</label>
+      <input type="text" class="form-control" id="Width" >
+    </div>
+    <div class="form-group col-md-1">
+      <label>Height:</label>
+      <input type="text" class="form-control" id="Height">
+    </div>
+  </div>
+  
+  <div class="form-row col-md-8">
+   <button class="btn btn-primary col-md-2" onclick="return Test()">Calculate</button>  &nbsp; &nbsp; 
+   <button type="submit" class="btn btn-danger col-md-2" onclick="clearVals()">Clear</button> &nbsp; &nbsp; 
+   <div id="finalOutput"></div>
+  </div>
+  
+  </form>
+      </div>
+    </div>
+  </div>
+   
+   <!-- //Second Accordian -->
+     <div class="card">
+    <div class="card-header" id="headingTwo">
+      <h5 class="mb-0">
+        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Kitchen Accessories
+        </button>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+      <div class="card-body">
+        <p>Work is in progress... </p>
+      </div>
+    </div>
+  </div>
+ 
+ </div>
+
   
 
-<script>
-var x = 1000;
-var y = 20;
-var z = 30;
-var inputA = 5;
-var inputB = 2;
-var BaseCalculation = (x + y + z) * inputA * inputB;
-document.getElementById("Dspace-Base-formulae").innerHTML = BaseCalculation;
-  
+	
 
-const Raj = "This is working Raj";
-document.getElementById("Raj-demo").innerHTML = Raj;
-
-</script>
-</body>
+<script src="Main.js"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
 </html>
