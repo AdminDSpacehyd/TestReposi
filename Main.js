@@ -1,3 +1,13 @@
+
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('New message to ' + recipient)
+  modal.find('.modal-body input').val(recipient)
+})
 var DropDownMultipledVal = 1;
 
 //First-Dropdown
@@ -17,12 +27,13 @@ for(var i = 0; i < BaseOptions.length; i++) {
 }
 
 var BaseOptionsVals = [1030, 1030, 900, 1030, 1030,1030, 1030,1030, 1030,1030, 1030,1030, 1030,1030, 650, 1030];
-const selectElement = document.querySelector('#exampleFormControlSelect1');
+var selectElement = document.querySelector('#exampleFormControlSelect1');
 var BaseSelectedVal = 0;
+var BaseSelectedOption = "";
 selectElement.addEventListener('change', (event) => {
-  const result = document.querySelector('.result');
-  BaseSelectedVal = `${event.target.value}`;
-  BaseSelectedVal = BaseOptionsVals[BaseOptions.indexOf(BaseSelectedVal)];
+  var result = document.querySelector('.result');
+  BaseSelectedOption = `${event.target.value}`;
+  BaseSelectedVal = BaseOptionsVals[BaseOptions.indexOf(BaseSelectedOption)];
 });
 
 //Second Dropdown
@@ -43,7 +54,6 @@ selectedproductElement.addEventListener('change', (event) => {
   const result = document.querySelector('.result');
   productSelectedVal = `${event.target.value}`;
   productSelectedVal = ProductOptionsVals[productOptions.indexOf(productSelectedVal)];
-  productSelectedVal = Number(BaseSelectedVal) + Number(productSelectedVal);
   
 });
 
@@ -64,23 +74,88 @@ selectedSubproductElement.addEventListener('change', (event) => {
   const result = document.querySelector('.result');
   subProductSelectedVal = `${event.target.value}`;
   subProductSelectedVal = SubProductOptionsVals[subProductOptions.indexOf(subProductSelectedVal)];
-  DropDownMultipledVal = Number(productSelectedVal) + Number(subProductSelectedVal);
-  console.log(DropDownMultipledVal);
 });
 
 
 //Buttons Logic
 var finalTest = [];
-function Test() {
+var counter = 0;
+var IndexPos = 0;
+function Create() {
   l= document.getElementById("Width").value;
   h = document.getElementById("Height").value;
-  var CalculatedArr = DropDownMultipledVal * l * h;
-  finalTest.push(CalculatedArr);
- console.log(finalTest[0]);
- document.getElementById("finalOutput").innerHTML = "Calculated Amount is: "+finalTest[0];
+  var CalculatedPrice = (Number(BaseSelectedVal) + Number(productSelectedVal) + Number(subProductSelectedVal)) * l * h;
+  var finalObj = {
+	  BaseVal: BaseSelectedOption,
+      SubProductA: productOptions[ProductOptionsVals.indexOf(productSelectedVal)],
+	  SubProductB: subProductOptions[SubProductOptionsVals.indexOf(subProductSelectedVal)],
+	  Width: l,
+	  Height: h,
+	  QuotePrice: CalculatedPrice
+  };
+   var found = false;
+   for(var i = 0; i < finalTest.length; i++) {
+    if (finalTest[i].BaseVal === finalObj.BaseVal && (finalTest[i].SubProductA === finalObj.SubProductA && finalTest[i].SubProductB === finalObj.SubProductB)) {
+        found = true;
+		alert("Items Already Exist in table");
+        break;
+    }
+   }
+    if(!found) {
+    finalObj.indexCounter = finalTest.length;
+     finalTest.push(finalObj);
+	 var emptyArr = [];
+	 emptyArr.push(finalObj)
+	 addDataToTbody(lakeTbody, emptyArr);
+	}
 return false
 }
 
 function clearVals(){
-	alert("Input values are cleared");
+	document.getElementById("createForm").reset();
 }
+
+function Edit(){
+	exampleFormControlSelect1 = finalTest[IndexPos].BaseVal;
+}
+
+function addDataToTbody(nl, data) { // nl -> NodeList, data -> array with objects
+  data.forEach((d, i) => {
+	 var tr = nl.insertRow(i);
+	 tr.id = "row" + d.indexCounter;
+	 var td = document.createElement('td');
+	 var chkbox = document.createElement('input');
+    chkbox.type = "checkbox";
+    chkbox.id = "chk" + d.indexCounter;
+    chkbox.name = "chkbx" ;
+	chkbox.value = 'value' + d.indexCounter;
+	chkbox.onclick = function () {
+     selectedCheckBox(this.id);
+	 };
+	td.appendChild(chkbox);
+	tr.appendChild(td);
+	delete d.indexCounter;
+    Object.keys(d).forEach((k, j) => { // Keys from object represent th.innerHTML
+      var cell = tr.insertCell(j);
+      cell.innerHTML = d[k]; // Assign object values to cells   
+    });
+    nl.appendChild(tr);
+  })
+}
+
+
+var lakeTbody = document.querySelector("#lake tbody");
+
+//addDataToTbody(lakeTbody, finalTest);
+
+
+function selectedCheckBox(chkboxId) {
+  IndexPos = chkboxId.substring(3);
+}
+
+function removeItemFromList(){
+  finalTest.splice(IndexPos, 1);
+  var tableRowId = "row"+IndexPos;
+  document.getElementById(tableRowId).remove(); 
+}
+
